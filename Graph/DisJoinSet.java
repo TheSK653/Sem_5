@@ -1,3 +1,4 @@
+import java.util.HashMap;
 public class DisJoinSet {
 
     class Node {
