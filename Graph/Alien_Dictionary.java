@@ -1,57 +1,68 @@
 import java.util.*;
+
 public class Alien_Dictionary {
+
     public String alienOrder(String[] words) {
         HashMap<Character, List<Character>> map = new HashMap<>();
-
         for (String word : words) {
-            for (char c : word.toCharArray()) {
-                if(!map.containsKey(c)) {
-                    map.put(c, new ArrayList<>());
+            for (char ch : word.toCharArray()) {
+                if (!map.containsKey(ch)) {
+                    map.put(ch, new ArrayList<>());
                 }
             }
         }
+
         for (int i = 0; i < words.length - 1; i++) {
-            String w1 = words[i];
-            String w2 = words[i + 1];
-            int len = Math.min(w1.length(), w2.length());
-            for (int j = 0; j < len; j++) {
-                char c1 = w1.charAt(j);
-                char c2 = w2.charAt(j);
-                if (c1 != c2) {
-                    map.get(c1).add(c2);
+            String s1 = words[i];
+            String s2 = words[i + 1];
+
+            if (s1.startsWith(s2) && s1.length() > s2.length()) { 		// not lexigoraphically sorted
+                return "";
+            }
+
+            for (int j = 0; j < Math.min(s1.length(), s2.length()); j++) {
+                if (s1.charAt(j) != s2.charAt(j)) {
+                    map.get(s1.charAt(j)).add(s2.charAt(j));
                     break;
                 }
             }
         }
-        int[] in = new int[26];
-        for (char c : map.keySet()) {
-            for (char nbrs : map.get(c)) {
-                in[nbrs - 'a']++;
+
+        int[] indegree = new int[26];
+        for (char ch : map.keySet()) {
+            for (char nbr : map.get(ch)) {
+                indegree[nbr - 'a']++;
             }
         }
+
         Queue<Character> q = new LinkedList<>();
-        for (char c : map.keySet()) {
-            if (in[c - 'a'] == 0) {
-                q.add(c);
+        for (char ch : map.keySet()) {
+            if (indegree[ch - 'a'] == 0) {
+                q.add(ch);
             }
         }
+
         StringBuilder sb = new StringBuilder();
         while (!q.isEmpty()) {
-            char r = q.poll();
-            sb.append(r);
-            for (char nbrs : map.get(r)) {
-                in[nbrs - 'a']--;
-                if (in[nbrs - 'a'] == 0) {
-                    q.add(nbrs);
+            char rem = q.poll();
+            sb.append(rem);
+
+            for (char nbr : map.get(rem)) {
+                indegree[nbr - 'a']--;
+                if (indegree[nbr - 'a'] == 0) {
+                    q.add(nbr);
                 }
             }
         }
+
         return sb.length() == map.size() ? sb.toString() : "";
     }
+
     public static void main(String[] args) {
-        Alien_Dictionary ad = new Alien_Dictionary();
-        String[] words = {"hrn","hrf","er","enn","rfnn"};
-        String order = ad.alienOrder(words);
-        System.out.println(order);
+        String[] words = {"wrt", "wrf", "er", "ett", "rftt"};
+        Alien_Dictionary obj = new Alien_Dictionary();
+        String ans = obj.alienOrder(words);
+        System.out.println(ans);
     }
+
 }
