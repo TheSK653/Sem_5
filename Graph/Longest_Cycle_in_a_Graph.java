@@ -1,40 +1,54 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Longest_Cycle_in_a_Graph {
-    public static  int longestCycle(int[] edges) {
-        int n = edges.length;
-        boolean[] visited = new boolean[n];
-        int longestCycleLength = -1;
 
-        for (int i = 0; i < n; i++) {
-            if (!visited[i]) {
-                int current = i;
-                Map<Integer, Integer> nodeToStep = new HashMap<>();
-                int step = 0;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] edges = { 3, 3, 4, 2, 3 };
+        System.out.println(longestCycle(edges));
+	}
 
-                while (current != -1) {
-                    if (visited[current]) {
-                        break;
-                    }
-                    if (nodeToStep.containsKey(current)) {
-                        int cycleLength = step - nodeToStep.get(current);
-                        longestCycleLength = Math.max(longestCycleLength, cycleLength);
-                        break;
-                    }
+	public static int longestCycle(int[] edges) {
+		int[] in = new int[edges.length];
+		for (int i = 0; i < edges.length; i++) {
+			if (edges[i] != -1) {
+				in[edges[i]]++;
+			}
+		}
+		Queue<Integer> q = new LinkedList<>();
+		for (int i = 0; i < in.length; i++) {
+			if (in[i] == 0) {
+				q.add(i);
+			}
+		}
+		boolean[] visited = new boolean[edges.length];
+		while (!q.isEmpty()) {
+			int e = q.poll();
+			visited[e] = true;
+			if (edges[e] != -1) {
+				in[edges[e]]--;
+				if (in[edges[e]] == 0) {
+					q.add(edges[e]);
+				}
+			}
+		}
+		int ans = -1;
+		for (int i = 0; i < visited.length; i++) {
+			if (visited[i] == false) {
+				int c = 1;
+				visited[i] = true;
+				int nbrs = edges[i];
+				while (nbrs != i) {
+					c++;
+					visited[nbrs] = true;
+					nbrs = edges[nbrs];
+				}
+				ans = Math.max(ans, c);
 
-                    nodeToStep.put(current, step);
-                    visited[current] = true;
-                    current = edges[current];
-                    step++;
-                }
-            }
-        }
+			}
 
-        return longestCycleLength;
-    }
-    public static void main(String[] args) {
-        int[] edges = {3, 3, 4, 2, 3};
-        int result = longestCycle(edges);
-        System.out.println("Longest Cycle Length: " + result); // Output: 3
+		}
+		return ans;
     }
 }
