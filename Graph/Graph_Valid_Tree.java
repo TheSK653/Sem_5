@@ -9,9 +9,9 @@ public class Graph_Valid_Tree {
             for (int i = 0; i < n; i++) {
                 map.put(i, new ArrayList<>());
             }
-            for (int i = 0; i < edges.length; i++) {
-                int v1 = edges[i][0];
-                int v2 = edges[i][1];
+            for (int[] edge : edges) {
+                int v1 = edge[0];
+                int v2 = edge[1];
                 map.get(v1).add(v2);
                 map.get(v2).add(v1);
             }
