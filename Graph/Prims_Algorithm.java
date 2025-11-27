@@ -39,21 +39,17 @@ public class Prims_Algorithm {
         HashSet<Integer> visited = new HashSet<>();
         pq.add(new PrimsPair(1, 1, 0));
         while (!pq.isEmpty()) {
-            //1.remove
+            
             PrimsPair rp = pq.poll();
 
-            //2. ignore if already visited
             if (visited.contains(rp.vtx)) {
                 continue;
             }
 
-            //3. mark visited
             visited.add(rp.vtx);
 
-            //4. self work
             System.out.println(rp);
 
-            //5. add unvisited nbrs
             for (int nbrs : map.get(rp.vtx).keySet()) {
                 if (!visited.contains(nbrs)) {
                     int cost = map.get(rp.vtx).get(nbrs);
