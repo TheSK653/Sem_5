@@ -7,10 +7,12 @@ public class S{
         int val;
         Node left, right;
     }
+
     private Node root;
     public S() {
         Create_Tree();
     }
+    
     private void Create_Tree() {
         Scanner sc = new Scanner(System.in);
         Queue <Node> queue = new LinkedList<>();
@@ -19,6 +21,7 @@ public class S{
         root = nn;
         // queue.add(root);
         queue.add(nn);
+
         while (!queue.isEmpty()) {
             Node current = queue.poll();
             int leftVal = sc.nextInt();
