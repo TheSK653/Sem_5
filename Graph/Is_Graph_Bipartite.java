@@ -46,7 +46,6 @@ public class Is_Graph_Bipartite {
         int dis;
 
         public BipartitePair(int vtx, int dis) {
-            // TODO Auto-generated constructor stub
             this.vtx = vtx;
             this.dis = dis;
         }

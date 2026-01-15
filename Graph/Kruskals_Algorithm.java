@@ -5,7 +5,6 @@ public class Kruskals_Algorithm {
     private HashMap<Integer, HashMap<Integer, Integer>> map;
 
     public Kruskals_Algorithm(int v) {
-        // TODO Auto-generated constructor stub
         map = new HashMap<>();
         for (int i = 1; i <= v; i++) {
             map.put(i, new HashMap<>());
@@ -22,7 +21,6 @@ public class Kruskals_Algorithm {
         int e1, e2, cost;
 
         public EdgePair(int e1, int e2, int cost) {
-            // TODO Auto-generated constructor stub
             this.e1 = e1;
             this.e2 = e2;
             this.cost = cost;

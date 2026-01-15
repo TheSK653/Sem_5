@@ -4,7 +4,6 @@ import java.util.Queue;
 public class Longest_Cycle_in_a_Graph {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int[] edges = { 3, 3, 4, 2, 3 };
         System.out.println(longestCycle(edges));
 	}
